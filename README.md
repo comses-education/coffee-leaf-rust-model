@@ -20,12 +20,12 @@ There are two script files available. You can run a single simulation using a fi
 $ julia scripts/OneRun.jl
 ```
 
-Results from this single run will show up in the `results` folder as `singlerun.csv`.
+Results from this single run will be saved in a `results` folder as `singlerun.csv`.
 
-The second option, `scripts/ParameterRuns.jl` lets you set up a parameter exploration experiment. The default setup of this experiment will run 2700 simulations of the model. To modify the parameter values to be evaluated or the replicates for each combination, open `scripts/ParameterRuns.jl` and edit lines 11 to 14. Like the first option, you can run it from bash:
+The second option, `scripts/ParameterRuns.jl`, lets you run a parameter exploration experiment. The default setup of this experiment will run 2700 simulations. To modify the parameter values to be evaluated or the replicates for each combination, open `scripts/ParameterRuns.jl` and edit lines 11 to 14. Like the first option, you can run the script from bash:
 
 ```bash
 $ julia scripts/ParameterRuns.jl
 ```
 
-Results from this experiment will be saved in the `results` folder as `parameterexp.csv`.
+Results from this experiment will be saved in a `results` folder as `parameterexp.csv`. Both scripts take care of creating the `results` folder if it has not created yet.
