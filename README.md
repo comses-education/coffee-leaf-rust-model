@@ -28,4 +28,4 @@ The second option, `scripts/ParameterRuns.jl`, lets you run a parameter explorat
 $ julia scripts/ParameterRuns.jl
 ```
 
-Results from this experiment will be saved in a `results` folder as `parameterexp.csv`. Both scripts take care of creating the `results` folder if it has not created yet.
+Results from this experiment will be saved in a `results` folder as `parameterexp.csv`. Both scripts take care of creating the `results` folder if it has not been created yet.
