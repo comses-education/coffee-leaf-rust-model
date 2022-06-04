@@ -1,4 +1,6 @@
-FROM comses/osg-julia
+FROM comses/osg-julia:1.7.3
+
+ENV JULIA_LOAD_PATH=/code:
 
 WORKDIR /code
 COPY . /code
