@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: comses/osg-julia:1.7.3
+Stage: spython-base
+
+%files
+. /code
+%post
+
+JULIA_LOAD_PATH=/code:
+
+cd /code
+
+julia /code/install.jl && \
+chmod -R go+r /opt/julia/share/julia/compiled
+
+%environment
+export JULIA_LOAD_PATH=/code:
+%runscript
+cd /code
+exec /bin/bash "$@"
+%startscript
+cd /code
+exec /bin/bash "$@"
