@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# first cut at a HTCondor submit script template to be wrung through envsubst + interpolation
++SingularityImage = "stash:///osgconnect/public/${SINGULARITY_USERNAME}/${SINGULARITY_IMAGE_NAME}"
+
+printf "Start time: "; /bin/date
+printf "Job running on node: "; /bin/hostname
+printf "Job running as user: "; /usr/bin/id
+printf "Command line args: " $1
+
+julia ./scripts/ParameterRuns.jl
+
+echo "Run complete: $?"

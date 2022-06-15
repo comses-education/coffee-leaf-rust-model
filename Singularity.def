@@ -7,14 +7,16 @@ Stage: spython-base
 %post
 
 JULIA_LOAD_PATH=/code:
+JULIA_DEPOT_PATH=/code/.julia:/opt/julia/share/julia
 
 cd /code
 
 julia /code/install.jl && \
-chmod -R go+r /opt/julia/share/julia/compiled
+chmod -R go+rX /opt/julia/share/julia /code
 
 %environment
 export JULIA_LOAD_PATH=/code:
+export JULIA_DEPOT_PATH=/code/.julia:/opt/julia/share/julia
 %runscript
 cd /code
 exec /bin/bash "$@"
