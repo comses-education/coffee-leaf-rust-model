@@ -3,7 +3,13 @@ From: comses/osg-julia:1.7.3
 Stage: spython-base
 
 %files
-. /code
+scripts /code/
+src /code/
+Manifest.toml /code/
+Project.toml /code/
+LICENSE /code/
+README.md /code/
+install.jl /code/
 %post
 
 JULIA_LOAD_PATH=:/code
@@ -12,7 +18,8 @@ JULIA_DEPOT_PATH=:/code
 cd /code
 
 julia --project=/code /code/install.jl && \
-chmod -R go+rX /opt/julia/share/julia /code
+chmod -R go+rX /opt/julia/share/julia /code && \
+mkdir results
 
 %environment
 export JULIA_LOAD_PATH=:/code

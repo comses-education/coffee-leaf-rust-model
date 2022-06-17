@@ -21,3 +21,5 @@ envsubst < submit.template > submit
 
 rm -f ${SINGULARITY_IMAGE_NAME}
 singularity build --fakeroot ${SINGULARITY_IMAGE_NAME} ${SINGULARITY_DEF}
+
+docker build -t comses/spatialrust:${CURRENT_VERSION} .
