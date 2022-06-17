@@ -7,6 +7,7 @@ CURRENT_VERSION="v1"
 SINGULARITY_USERNAME="${1:-USER}"
 
 # convert Dockerfile to singularity recipe
+echo "regenerating ${SINGULARITY_DEF} from Dockerfile"
 spython recipe Dockerfile ${SINGULARITY_DEF}
 
 echo "SINGULARITY USERNAME: ${SINGULARITY_USERNAME}"
@@ -18,4 +19,5 @@ export SINGULARITY_USERNAME
 
 envsubst < submit.template > submit
 
+rm -f ${SINGULARITY_IMAGE_NAME}
 singularity build --fakeroot ${SINGULARITY_IMAGE_NAME} ${SINGULARITY_DEF}
