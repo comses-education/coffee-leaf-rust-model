@@ -7,7 +7,10 @@ Stage: spython-base
 
 %post
 
-julia -e 'cd("/code"); import Pkg; Pkg.activate("."); println(DEPOT_PATH); println(LOAD_PATH)'
+julia -e 'cd("/code"); import Pkg; Pkg.activate("."); println(DEPOT_PATH); println(Base.load_path()); using Distributed; pathof(Distributed)'
+
+ls -a /root
+
 #ls /code
 # cd /code
 # julia /code/install.jl

@@ -27,7 +27,7 @@ jobs:
 #    - uses: actions/cache@v3
 #      id: image
 #      with:
-#        path: $GITHUB_WORKSPACE/.singularity/cache
+#        path: $HOME/.singularity/cache
 #        key: sing-image
     - name: Build Singularity image
       if: steps.image.outputs.cache-hit != 'true'
