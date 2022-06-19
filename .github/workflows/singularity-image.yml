@@ -33,6 +33,6 @@ jobs:
       if: steps.image.outputs.cache-hit != 'true'
       run: singularity build --fakeroot spatialrust-v1 Sing2.def
     - name: Execute the single run parameterization
-      run: singularity run spatialrust-v1 scripts/OneRun.jl
+      run: singularity run spatialrust-v1 run.jl
 
    
