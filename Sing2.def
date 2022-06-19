@@ -7,11 +7,10 @@ Stage: spython-base
 
 %post
 
-#chmod -r go+rX /code
 cd /code
 ls
-julia -e 'println("no install")'
-# julia /code/install.jl 
+# julia -e 'println("no install")'
+julia /code/install.jl 
 # chmod -R go+rX /opt/julia/share/julia /code
 
 # %environment
