@@ -2,9 +2,9 @@ name: Singularity Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ env-vars ]
   pull_request:
-    branches: [ main ]
+    branches: [ env-vars ]
 
 jobs:
 
