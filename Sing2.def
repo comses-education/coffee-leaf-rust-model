@@ -16,8 +16,9 @@ minimal/. /code
 # ls /code
 cd /code
 julia /code/install.jl
-chmod -R a+rX /root/.julia/
+chmod -R a+rX /root/.julia
 julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
+ls /root/.julia
 ls /root/.julia/environments
 
 # %environment
@@ -26,4 +27,4 @@ ls /root/.julia/environments
 
 %runscript
 # ls /code
-cd /code && exec ../opt/julia/bin/julia "$@"
+cd /code && exec /opt/julia/bin/julia "$@"
