@@ -14,7 +14,7 @@ minimal/. /code
 # chmod -R a+rX  /root/.julia/
 
 # from https://github.com/Crown421/Singularity.jl/blob/master/src/generate.jl
-export JULIA_DEPOT_PATH=/user/.julia
+export JULIA_DEPOT_PATH=/code/.julia
 
 cd /code
 julia /code/install.jl
@@ -27,8 +27,8 @@ cd /code
 julia /code/install.jl
 
 
-# %environment
-# export JULIA_LOAD_PATH=:/code
+%environment
+export JULIA_LOAD_PATH=/code/.julia
 # export JULIA_DEPOT_PATH=:/code
 
 %runscript
