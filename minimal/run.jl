@@ -2,6 +2,7 @@ import Pkg
 Pkg.activate(".")
 println("Depot: ", DEPOT_PATH)
 println("Load: ", Base.load_path())
-print(pwd())
+println(pwd())
+println("try CSV")
 using CSV
 println("hello")
