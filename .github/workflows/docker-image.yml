@@ -5,6 +5,11 @@ on:
     branches: [ env-vars ]
   pull_request:
     branches: [ env-vars ]
+  paths:
+    - 'Dockerfile'
+    - 'install.jl'
+    - 'Project.jl'
+    - 'scripts/*'
 
 jobs:
 
