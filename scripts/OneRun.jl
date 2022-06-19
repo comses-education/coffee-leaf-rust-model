@@ -1,10 +1,10 @@
 # Load Packages
 using Distributed
-@everywhere using DrWatson
-@everywhere @quickactivate "SpatialRust"
+@everywhere import Pkg
+@everywhere Pkg.activate(".") 
 @everywhere begin
-using Agents, CSV, DataFrames, Distributed, Statistics
-using SpatialRust
+	using Agents, CSV, DataFrames, Distributed, Statistics
+	using SpatialRust
 end
 
 # Run one simulation using default parameters
