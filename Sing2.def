@@ -8,6 +8,7 @@ Stage: spython-base
 %post
 
 ls /code
+
 # cd /code
 # julia /code/install.jl
 # chmod -R a+rX /opt/julia/share/julia/
