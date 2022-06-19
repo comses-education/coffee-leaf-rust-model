@@ -3,7 +3,7 @@ From: comses/osg-julia:1.7.3
 Stage: spython-base
 
 %files
-. /code
+minimal/. /code
 
 %post
 
@@ -17,6 +17,8 @@ Stage: spython-base
 cd /code
 julia /code/install.jl
 chmod -R a+rX /root/.julia/
+julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
+julia run.jl
 
 # %environment
 # export JULIA_LOAD_PATH=:/code
