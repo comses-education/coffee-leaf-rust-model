@@ -25,6 +25,6 @@ jobs:
       with:
         singularity-version: 3.8.3
     - name: Build Singularity image
-      run: singularity build spatialrust-v1 Sing2.def
+      run: singularity build --fakeroot spatialrust-v1 Sing2.def
     - name: Execute the single run parameterization
       run: singularity run spatialrust-v1 julia scripts/OneRun.jl
