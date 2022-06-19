@@ -7,14 +7,9 @@ Stage: spython-base
 
 %post
 
-ls -a
-ls -a /opt
-ls /opt/julia
+cd /code
+julia /code/install.jl
 chmod -R a+rX /opt/julia/share/julia/
-ls /opt/julia/share/julia/
-#cd /code
-#julia /code/install.jl 
-#chmod -R a+rX /.julia/packages
 
 # %environment
 # export JULIA_LOAD_PATH=:/code
