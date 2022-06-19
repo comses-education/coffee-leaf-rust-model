@@ -7,9 +7,11 @@ Stage: spython-base
 
 %post
 
-julia -e 'cd("/code"); import Pkg; Pkg.activate("."); println(DEPOT_PATH); println(Base.load_path()); using Distributed; pathof(Distributed)'
+julia -e 'cd("/code"); import Pkg; Pkg.activate("."); println(DEPOT_PATH); println(Base.load_path()); Pkg.add("JSON"); using JSON; println(pathof(JSON))'
 
-ls -a /root
+julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); Pkg.add("JSON"); using JSON; println(pathof(JSON))'
+
+chmod -R a+rX  /root/.julia/
 
 #ls /code
 # cd /code
