@@ -3,13 +3,13 @@ name: Singularity Image CI
 on:
   push:
     branches: [ env-vars ]
+    paths:
+      - 'Sing2.def'
+      - 'install.jl'
+      - 'Project.jl'
+      - 'scripts/*'
   pull_request:
     branches: [ env-vars ]
-  paths:
-    - 'Sing2.def'
-    - 'install.jl'
-    - 'Project.jl'
-    - 'scripts/*'
 
 
 jobs:
