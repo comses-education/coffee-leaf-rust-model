@@ -13,23 +13,19 @@ minimal/. /code
 # 
 # chmod -R a+rX  /root/.julia/
 
-# from https://github.com/Crown421/Singularity.jl/blob/master/src/generate.jl
 export JULIA_DEPOT_PATH=/code/.julia
 
 cd /code
 julia /code/install.jl
-chmod -R a+rX $JULIA_DEPOT_PATH /code
+#cp -r /root/.julia/packages /opt/julia/share/julia/.
+chmod -R a+rX /code
 julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
 
 
 
-cd /code
-julia /code/install.jl
-
-
 %environment
-export JULIA_LOAD_PATH=/code/.julia
-# export JULIA_DEPOT_PATH=:/code
+#export JULIA_LOAD_PATH=/code/.julia
+export JULIA_DEPOT_PATH=/code/.julia
 
 %runscript
 # ls /code
