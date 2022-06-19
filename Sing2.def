@@ -8,7 +8,6 @@ Stage: spython-base
 %post
 
 ls /code
-
 # cd /code
 # julia /code/install.jl
 # chmod -R a+rX /opt/julia/share/julia/
@@ -19,4 +18,5 @@ ls /code
 
 %runscript
 # ls /code
-cd /code && exec ../opt/julia/bin/julia "$@"
+cd /code 
+# && exec ../opt/julia/bin/julia "$@"
