@@ -14,7 +14,7 @@ Stage: spython-base
 # chmod -R a+rX  /root/.julia/
 
 # ls /code
-# cd /code
+cd /code
 julia /code/install.jl
 chmod -R a+rX /root/.julia/
 
