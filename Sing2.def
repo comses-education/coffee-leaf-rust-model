@@ -8,7 +8,7 @@ Stage: spython-base
 %post
 
 cd /code
-julia /install.jl 
+# julia /install.jl 
 # && \
 # chmod -R go+rX /opt/julia/share/julia /code
 
@@ -17,5 +17,6 @@ julia /install.jl
 # export JULIA_DEPOT_PATH=:/code
 
 %runscript
-cd /code
-exec /bin/bash "$@"
+ls /code
+# cd /code
+# exec /bin/bash "$@"
