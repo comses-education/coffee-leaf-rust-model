@@ -19,7 +19,6 @@ julia /code/install.jl
 chmod -R a+rX /root/.julia
 julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
 ls /root/.julia
-ls /root/.julia/environments
 
 # %environment
 # export JULIA_LOAD_PATH=:/code
