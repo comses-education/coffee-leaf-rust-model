@@ -13,7 +13,8 @@ minimal/. /code
 # 
 # chmod -R a+rX  /root/.julia/
 
-export JULIA_DEPOT_PATH=/code/.julia
+export JULIA_DEPOT_PATH=/opt/julia-1.7.3/share/julia
+#export JULIA_LOAD_PATH=/code/.julia
 
 cd /code
 julia /code/install.jl
@@ -24,8 +25,8 @@ julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_pat
 
 
 %environment
-export JULIA_LOAD_PATH=/code/.julia
-export JULIA_DEPOT_PATH=/code/.julia
+# export JULIA_LOAD_PATH=/code/.julia
+# export JULIA_DEPOT_PATH=/code/.julia
 
 %runscript
 # ls /code
