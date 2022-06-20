@@ -1,11 +1,8 @@
 # Load Packages
-using Distributed
-@everywhere using DrWatson
-@everywhere @quickactivate "SpatialRust"
-@everywhere begin
+import Pkg
+Pkg.activate(".") 
 using Agents, CSV, DataFrames, Distributed, Statistics
 using SpatialRust
-end
 
 # Define parameter options
 mean_temp = collect([20.0:0.5:25.0]) # mean temperature values: min:step:max
