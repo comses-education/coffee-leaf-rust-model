@@ -3,7 +3,7 @@ From: comses/osg-julia:1.7.3
 Stage: spython-base
 
 %files
-minimal/. /code
+. /code
 
 %post
 
@@ -24,7 +24,7 @@ julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_pat
 
 
 
-%environment
+# %environment
 # export JULIA_LOAD_PATH=/code/.julia
 # export JULIA_DEPOT_PATH=/code/.julia
 
