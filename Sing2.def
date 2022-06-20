@@ -19,7 +19,7 @@ export JULIA_DEPOT_PATH=/opt/julia-1.7.3/share/julia
 cd /code
 julia /code/install.jl
 #cp -r /root/.julia/packages /opt/julia/share/julia/.
-chmod -R a+rX $JULIA_DEPOT_PATH /code
+chmod -R a+wrX $JULIA_DEPOT_PATH /code
 julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
 
 
