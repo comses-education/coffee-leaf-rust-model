@@ -1,11 +1,8 @@
 # Load Packages
-using Distributed
-@everywhere using DrWatson
-@everywhere @quickactivate "SpatialRust"
-@everywhere begin
+import Pkg
+Pkg.activate(".") 
 using Agents, CSV, DataFrames, Distributed, Statistics
 using SpatialRust
-end
 
 # Define parameter options
 mean_temp = collect([20.0:0.5:25.0]) # mean temperature values: min:step:max
@@ -42,9 +39,6 @@ conds = Dict(
 
 # Run simulations (in parallel)
 results = shading_experiment(conds)
-
-# Create directory, in case it has not been created yet
-mkpath("results/")
 
 # Write results
 CSV.write("results/parameterexp.csv", results)
