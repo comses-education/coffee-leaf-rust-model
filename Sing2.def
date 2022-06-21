@@ -31,6 +31,6 @@ julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_pat
 
 %runscript
 # ls /code
-cd /code && exec julia "$@"
+cd exec julia "$@"
 
 
