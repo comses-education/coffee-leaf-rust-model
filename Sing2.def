@@ -7,14 +7,7 @@ Stage: spython-base
 
 %post
 
-# julia -e 'cd("/code"); import Pkg; Pkg.activate("."); println(DEPOT_PATH); println(Base.load_path()); Pkg.add("JSON"); using JSON; println(pathof(JSON))'
-# 
-# julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); Pkg.add("JSON"); using JSON; println(pathof(JSON))'
-# 
-# chmod -R a+rX  /root/.julia/
-
 export JULIA_DEPOT_PATH=/opt/julia-1.7.3/share/julia
-#export JULIA_LOAD_PATH=/code/.julia
 
 cd /code
 mkdir results
@@ -24,13 +17,7 @@ chmod -R a+rX $JULIA_DEPOT_PATH /code
 julia --project=/code -e 'import Pkg; println(DEPOT_PATH); println(Base.load_path()); using CSV; println(pathof(CSV))'
 
 
-
-# %environment
-# export JULIA_LOAD_PATH=/code/.julia
-# export JULIA_DEPOT_PATH=/code/.julia
-
 %runscript
-# ls /code
-cd exec julia "$@"
+exec julia "$@"
 
 
