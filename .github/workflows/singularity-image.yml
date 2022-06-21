@@ -24,14 +24,8 @@ jobs:
       uses: eWaterCycle/setup-singularity@v7
       with:
        singularity-version: 3.8.3
-    - uses: actions/cache@v3
-      id: image
-      with:
-        path: $HOME/.singularity
-        key: sing-image
     - name: Build Singularity image
-      if: steps.image.outputs.cache-hit != 'true'
-      run: singularity build --fakeroot spatialrust-v1 Sing2.def
+      run: singularity build --fakeroot spatialrust-v1 Singularity.def
     - name: Execute the single run parameterization
       run: singularity run --bind ./results:/code/results --pwd /code spatialrust-v1 scripts/OneRun.jl
 
