@@ -6,7 +6,7 @@ on:
     paths:
       - 'Singularity.def'
       - 'install.jl'
-      - 'Project.jl'
+      - 'Project.toml'
       - 'scripts/*'
   pull_request:
     branches: [ main ]
