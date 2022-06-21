@@ -3,8 +3,14 @@ name: Singularity Image CI
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'Singularity.def'
+      - 'install.jl'
+      - 'Project.jl'
+      - 'scripts/*'
   pull_request:
     branches: [ main ]
+
 
 jobs:
 
