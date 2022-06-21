@@ -8,7 +8,7 @@ using SpatialRust
 df = onerun_spatialrust()
 
 # Create directory, in case it has not been created yet
-mkpath("results/")
+# mkpath("results/")
 
 # Write results
 CSV.write("results/singlerun.csv", df)
