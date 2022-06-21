@@ -4,7 +4,7 @@ on:
   push:
     branches: [ env-vars ]
     paths:
-      - 'Sing2.def'
+      - 'Singularity.def'
       - 'install.jl'
       - 'Project.jl'
       - 'scripts/*'
