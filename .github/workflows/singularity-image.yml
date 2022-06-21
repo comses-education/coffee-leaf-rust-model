@@ -2,15 +2,9 @@ name: Singularity Image CI
 
 on:
   push:
-    branches: [ env-vars ]
-    paths:
-      - 'Singularity.def'
-      - 'install.jl'
-      - 'Project.jl'
-      - 'scripts/*'
+    branches: [ main ]
   pull_request:
-    branches: [ env-vars ]
-
+    branches: [ main ]
 
 jobs:
 
