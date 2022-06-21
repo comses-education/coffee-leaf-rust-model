@@ -40,8 +40,5 @@ conds = Dict(
 # Run simulations (in parallel)
 results = shading_experiment(conds)
 
-# Create directory, in case it has not been created yet
-# mkpath("results/")
-
 # Write results
 CSV.write("results/parameterexp.csv", results)
