@@ -1,3 +1,3 @@
 *.sif
 *~
-results
+results/*.csv
