@@ -8,6 +8,7 @@ on:
       - 'install.jl'
       - 'Project.toml'
       - 'scripts/*'
+      - 'src/*'
   pull_request:
     branches: [ main ]
 
