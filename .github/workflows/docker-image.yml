@@ -3,6 +3,12 @@ name: Docker Image CI
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'Dockerfile'
+      - 'install.jl'
+      - 'Project.toml'
+      - 'scripts/*'
+      - 'src/*'
   pull_request:
     branches: [ main ]
 

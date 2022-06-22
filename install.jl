@@ -1,4 +1,4 @@
 using Pkg
 
-Pkg.activate("/code")
+Pkg.activate(".")
 Pkg.instantiate()

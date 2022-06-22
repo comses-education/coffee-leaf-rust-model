@@ -7,9 +7,6 @@ CURRENT_VERSION="v1"
 SINGULARITY_USERNAME="${1:-USER}"
 
 # convert Dockerfile to singularity recipe
-echo "regenerating ${SINGULARITY_DEF} from Dockerfile"
-spython recipe Dockerfile ${SINGULARITY_DEF}
-
 echo "SINGULARITY USERNAME: ${SINGULARITY_USERNAME}"
 
 # explicitly version singularity images due to aggressive filesystem caching
