@@ -38,7 +38,7 @@ conds = Dict(
 )
 
 # Run simulations (in parallel)
-results = shading_experiment(conds)
+results = parameters_experiment(conds)
 
 # Write results
 CSV.write("results/parameterexp.csv", results)
