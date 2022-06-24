@@ -4,6 +4,8 @@
 #
 OSG_USERNAME := ${USER}
 OSG_MODEL_NAME := spatialrust
+OSG_MODEL_ENTRYPOINT_SCRIPT := ParameterRuns.jl
+OSG_MODEL_OUTPUT_FILES := results.tar.xz
 OSG_SUBMIT_FILENAME := ${OSG_MODEL_NAME}.submit
 OSG_JOB_SCRIPT := job-wrapper.sh
 
@@ -19,7 +21,11 @@ $(SINGULARITY_IMAGE_NAME):
 $(OSG_SUBMIT_FILENAME): submit.template
 	echo "OSG USERNAME: ${SINGULARITY_USERNAME}"
 	echo "SINGULARITY_IMAGE_NAME: ${SINGULARITY_IMAGE_NAME}"
-	SINGULARITY_IMAGE_NAME=${SINGULARITY_IMAGE_NAME} OSG_USERNAME=${OSG_USERNAME} envsubst < submit.template > $(OSG_SUBMIT_FILENAME)
+	SINGULARITY_IMAGE_NAME=${SINGULARITY_IMAGE_NAME} \
+	OSG_USERNAME=${OSG_USERNAME} \
+	OSG_MODEL_ENTRYPOINT_SCRIPT=${OSG_MODEL_ENTRYPOINT_SCRIPT} \
+	OSG_MODEL_OUTPUT_FILES=${OSG_MODEL_OUTPUT_FILES} \
+	envsubst < submit.template > ${OSG_SUBMIT_FILENAME}
 
 build: $(SINGULARITY_DEF) $(SINGULARITY_IMAGE_NAME) $(OSG_SUBMIT_FILENAME)
 	docker build -t comses/${OSG_MODEL_NAME}:${CURRENT_VERSION} .
@@ -30,9 +36,9 @@ clean:
 	rm -f ${SINGULARITY_IMAGE_NAME} ${OSG_SUBMIT_FILENAME} *~
 
 deploy: build
-	echo "IMPORTANT: This command assumes you have created an ssh alias in your ~/.ssh/config named `osg` that connects to your OSG connect node"
+	echo "IMPORTANT: This command assumes you have created an ssh alias in your ~/.ssh/config named 'osg' that connects to your OSG connect node"
 	echo "Copying singularity image to osg:/public/${OSG_USERNAME}"
-	rsync -avzP ${SINGULARITY_IMAGE_NAME}  osg:/public/${OSG_USERNAME}
+	rsync -avzP ${SINGULARITY_IMAGE_NAME} osg:/public/${OSG_USERNAME}
 	echo "Creating ${OSG_MODEL_NAME} folder in /home/${OSG_USERNAME}"
 	ssh ${OSG_USERNAME}@osg mkdir -p ${OSG_MODEL_NAME}
 	echo "Copying submit filename, job script, and julia entrypoint scripts to /home/${OSG_USERNAME}/${OSG_MODEL_NAME}"
