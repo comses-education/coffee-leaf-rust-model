@@ -25,4 +25,4 @@ jobs:
     - name: Build Singularity image
       run: singularity build --fakeroot spatialrust-v1 Singularity.def
     - name: Execute the single run parameterization
-      run: singularity run --bind ./results:/code/results --pwd /code spatialrust-v1 scripts/OneRun.jl
+      run: singularity run --bind ./:/srv/results --pwd /code spatialrust-v1 scripts/OneRun.jl
