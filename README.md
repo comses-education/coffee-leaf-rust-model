@@ -29,3 +29,9 @@ $ julia scripts/ParameterRuns.jl
 ```
 
 Results from this experiment will be saved in a `results` folder as `parameterexp.csv`. Both scripts take care of creating the `results` folder if it has not been created yet.
+
+### Running on Open Science Grid
+1. Establish an account on Open Science Grid
+   https://osg-htc.org/research-facilitation/accounts-and-projects/general/index.html
+2. Build a singularity image from this file via `./build.sh <your-osg-username>`
+3. Copy the singularity image e.g., `spatialrust-v1.sif` to your OSG `/public/<username>` directory

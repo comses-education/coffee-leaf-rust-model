@@ -1,13 +1,44 @@
-#!/bin/bash
+# CoMSES spatialrust Open Science Grid submit template
+#
+universe = vanilla
 
-# first cut at a HTCondor submit script template to be wrung through envsubst + interpolation
-+SingularityImage = "stash:///osgconnect/public/${SINGULARITY_USERNAME}/${SINGULARITY_IMAGE_NAME}"
+# Job requirements - make sure we're running on a Singularity enabled node with enough resources to execute our code
+Requirements = HAS_SINGULARITY == True && OSG_HOST_KERNEL_VERSION >= 31000
+request_cpus = 1
+request_memory = 1 GB
+request_disk = 25 GB
 
-printf "Start time: "; /bin/date
-printf "Job running on node: "; /bin/hostname
-printf "Job running as user: "; /usr/bin/id
-printf "Command line args: " $1
+# Specify the singularity container environment that the executable declared below should be run on in OSG. By default
+# Looks for a singularity image in /public/${OSG_USERNAME}
+# depends on: `make deploy`
++SingularityImage = "stash:///osgconnect/public/${OSG_USERNAME}/${SINGULARITY_IMAGE_NAME}"
 
-julia ./scripts/ParameterRuns.jl
+# Executable shell script wrapper that prints out basic system info and runs the specified Julia entrypoint script
+# pass in the full path or relative path Julia entrypoint as an argument (relative to the pwd of the singularity
+# container)
+Executable = job-wrapper.sh
+Arguments = ParameterRuns.jl
 
-echo "Run complete: $?"
+# Inputs/outputs - in this case the rest of the code should be in 
+# If you leave out transfer_output_files, all generated files comes back
+transfer_input_files = ParameterRuns.jl
+transfer_output_files = results.tar.xz
+
+# Error and output are the error and output channels from your job
+# that HTCondor returns from the remote host.
+Error = $(Cluster).$(Process).error
+Output = $(Cluster).$(Process).output
+
+# The LOG file is where HTCondor places information about your
+# job's status, success, and resource consumption.
+Log = $(Cluster).log
+
+# Send the job to Held state on failure. 
+#on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)
+
+# Periodically retry the jobs every 1 hour, up to a maximum of 5 retries.
+#periodic_release =  (NumJobStarts < 5) && ((CurrentTime - EnteredCurrentStatus) > 60*60)
+
+# queue is the "start button" - it launches any jobs that have been
+# specified thus far.
+queue 1
