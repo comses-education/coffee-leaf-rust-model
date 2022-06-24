@@ -17,7 +17,7 @@ request_disk = 25 GB
 # pass in the full path or relative path Julia entrypoint as an argument (relative to the pwd of the singularity
 # container)
 Executable = job-wrapper.sh
-Arguments = ParameterRuns.jl
+Arguments = /srv/ParameterRuns.jl
 
 # Inputs/outputs - in this case the rest of the code should be in 
 # If you leave out transfer_output_files, all generated files comes back

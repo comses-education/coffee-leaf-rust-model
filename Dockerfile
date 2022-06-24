@@ -7,7 +7,9 @@ ENV JULIA_DEPOT_PATH=/opt/julia/share/julia
 WORKDIR /code
 COPY install.jl *.toml /code
 RUN julia install.jl && \
-    chmod -R a+rX /opt/julia/share/julia
+    chmod -R a+rX /opt/julia/share/julia && \
+    mkdir -p /code/results
 
-# now copy the rest of the things over
+# split up the COPYs so that modification of anything that doesn't affect the `julia install.jl` command doesn't force a
+# full container rebuild
 COPY . /code

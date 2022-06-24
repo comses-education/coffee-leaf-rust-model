@@ -12,10 +12,14 @@ printf "OSG site: $OSG_SITE_NAME"
 printf "Job running as user: "; /usr/bin/id
 printf "Command line args: $1"
 
+mkdir /srv/results
+
+cd /code
+
 julia ${JULIA_ENTRYPOINT} 2>&1
 
 printf "${JULIA_ENTRYPOINT} execution completed: "; /bin/date -Iminutes
 
-tar jcvf results.tar.xz results
+tar Jcvf /srv/results.tar.xz /srv/results
 
 echo "Results archived in results.tar.xz with exit code $?"
