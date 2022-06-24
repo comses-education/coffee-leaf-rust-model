@@ -1,10 +1,11 @@
-name: Docker Image CI
+name: Docker Image / Makefile CI
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'Dockerfile'
+      - 'Makefile'
       - 'install.jl'
       - 'Project.toml'
       - 'scripts/*'
@@ -21,6 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --tag comses/spatialrust-model
+      run: make build
     - name: Execute the single run parameterization
-      run: docker run --rm comses/spatialrust-model julia scripts/OneRun.jl
+      run: docker run --rm comses/spatialrust julia scripts/OneRun.jl

@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
+      - 'Makefile'
       - 'Singularity.def'
       - 'install.jl'
       - 'Project.toml'
@@ -12,13 +13,9 @@ on:
   pull_request:
     branches: [ main ]
 
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup Singularity
@@ -29,5 +26,3 @@ jobs:
       run: singularity build --fakeroot spatialrust-v1 Singularity.def
     - name: Execute the single run parameterization
       run: singularity run --bind ./results:/code/results --pwd /code spatialrust-v1 scripts/OneRun.jl
-
-   
