@@ -21,7 +21,7 @@ Arguments = ParameterRuns.jl
 
 # Inputs/outputs - in this case the rest of the code should be in 
 # If you leave out transfer_output_files, all generated files comes back
-transfer_input_files = ParameterRuns.jl
+transfer_input_files = ./spatialrust/ParameterRuns.jl
 transfer_output_files = results.tar.xz
 
 # Error and output are the error and output channels from your job
