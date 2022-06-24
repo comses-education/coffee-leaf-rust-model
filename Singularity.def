@@ -2,6 +2,11 @@ Bootstrap: docker
 From: comses/osg-julia:1.7.3
 Stage: spython-base
 
+%labels
+    author Manuela Vanegas-Ferro
+    git-repository https://github.com/comses-education/spatialrust-model
+
+
 %help
 This container bundles the Julia packages and computational model for the coffee leaf rust model by Manuela
 Vanegas-Ferro
