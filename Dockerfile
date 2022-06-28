@@ -5,7 +5,7 @@ LABEL maintainer="CoMSES Net <support@comses.net>"
 ENV JULIA_DEPOT_PATH=/opt/julia/share/julia
 
 WORKDIR /code
-COPY install.jl *.toml /code
+COPY install.jl *.toml /code/
 RUN julia install.jl && \
     chmod -R a+rX /opt/julia/share/julia && \
     mkdir -p /code/results
