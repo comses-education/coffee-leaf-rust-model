@@ -1,7 +1,7 @@
 # Load Packages
 import Pkg
 Pkg.activate(".") 
-using Agents, CSV, DataFrames, Distributed, Statistics
+using Agents, CSV, DataFrames, Distributed, DrWatson, Statistics
 using SpatialRust
 
 # Define parameter options
