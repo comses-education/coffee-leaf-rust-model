@@ -2,7 +2,7 @@ module SpatialRust
 
 using Agents, Distributions, Random, StaticArrays
 using DataFrames
-using DrWatson: srcdir, datadir
+using DrWatson: srcdir, datadir, dict_list
 using StatsBase: sample, weights
 
 include(srcdir("ABM/Initialize.jl"))

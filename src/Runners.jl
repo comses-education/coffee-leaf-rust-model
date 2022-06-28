@@ -11,7 +11,7 @@ function onerun_spatialrust(steps::Int = 1095, side::Int = 100, maxlesions::Int 
 end
 
 function parameters_experiment(conds::Dict{Symbol, Any})
-    combinations = DrWatson.dict_list(conds)
+    combinations = dict_list(conds)
     dfs = pmap(run_par_combination, combinations)
     df = reduce(vcat, dfs)
     return df
