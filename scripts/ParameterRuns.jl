@@ -5,9 +5,9 @@ using Agents, CSV, DataFrames, Distributed, DrWatson, Statistics
 using SpatialRust
 
 # Define parameter options
-mean_temp = collect([20.0:0.5:25.0]) # mean temperature values: min:step:max
-rain_prob = collect([0.4:0.1:0.9]) # rain probability values
-wind_prob = collect([0.1:0.1:0.9]) # wind probability values
+mean_temp = collect(20.0:0.5:25.0) # mean temperature values: min:step:max
+rain_prob = collect(0.4:0.1:0.9) # rain probability values
+wind_prob = collect(0.1:0.1:0.9) # wind probability values
 reps = 5 # number of replicates per parameter combination
 
 # Create dictionary with parameter conditions
