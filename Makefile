@@ -41,6 +41,5 @@ deploy: build
 	rsync -avzP ${SINGULARITY_IMAGE_NAME} osg:/public/${OSG_USERNAME}
 	echo "Creating ${OSG_MODEL_NAME} folder in /home/${OSG_USERNAME}"
 	ssh ${OSG_USERNAME}@osg mkdir -p ${OSG_MODEL_NAME}
-	echo "Copying submit filename, job script, and julia entrypoint scripts to /home/${OSG_USERNAME}/${OSG_MODEL_NAME}"
-	rsync -avzP ${OSG_SUBMIT_FILENAME} ${OSG_JOB_SCRIPT} osg:${OSG_MODEL_NAME}/
-	rsync -avzP scripts/ osg:${OSG_MODEL_NAME}/
+	echo "Copying submit filename, job script, and entrypoint scripts to /home/${OSG_USERNAME}/${OSG_MODEL_NAME}"
+	rsync -avzP ${OSG_SUBMIT_FILENAME} ${OSG_JOB_SCRIPT} scripts/ osg:${OSG_MODEL_NAME}/

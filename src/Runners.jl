@@ -1,3 +1,5 @@
+using Distributed
+
 export onerun_spatialrust, parameters_experiment
 
 function onerun_spatialrust(steps::Int = 1095, side::Int = 100, maxlesions::Int = 25)
