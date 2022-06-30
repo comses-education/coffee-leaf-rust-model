@@ -1,5 +1,6 @@
 # backup files
 *~
+config.mk
 
 # singularity images + output
 *.sif

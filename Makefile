@@ -1,7 +1,7 @@
 # customize via `% make build OSG_USERNAME=<your-osg-username>` e.g., `% make build OSG_USERNAME=alee`
-# customizable variables via the command line include:
-# OSG_USERNAME, OSG_SUBMIT_FILENAME, CURRENT_VERSION
-#
+# or set values directly in config.mk
+include config.mk
+
 OSG_USERNAME := ${USER}
 OSG_MODEL_NAME := spatialrust
 OSG_MODEL_ENTRYPOINT_SCRIPT := ParameterRuns.jl
@@ -25,7 +25,7 @@ $(OSG_SUBMIT_FILENAME): submit.template
 	OSG_USERNAME=${OSG_USERNAME} \
 	OSG_MODEL_ENTRYPOINT_SCRIPT=${OSG_MODEL_ENTRYPOINT_SCRIPT} \
 	OSG_MODEL_OUTPUT_FILES=${OSG_MODEL_OUTPUT_FILES} \
-	envsubst < submit.template > ${OSG_SUBMIT_FILENAME}
+	envsubst < scripts/submit.template > scripts/${OSG_SUBMIT_FILENAME}
 
 build: $(SINGULARITY_DEF) $(SINGULARITY_IMAGE_NAME) $(OSG_SUBMIT_FILENAME)
 	docker build -t comses/${OSG_MODEL_NAME}:${CURRENT_VERSION} .
@@ -42,4 +42,4 @@ deploy: build
 	echo "Creating ${OSG_MODEL_NAME} folder in /home/${OSG_USERNAME}"
 	ssh ${OSG_USERNAME}@osg mkdir -p ${OSG_MODEL_NAME}
 	echo "Copying submit filename, job script, and entrypoint scripts to /home/${OSG_USERNAME}/${OSG_MODEL_NAME}"
-	rsync -avzP ${OSG_SUBMIT_FILENAME} ${OSG_JOB_SCRIPT} scripts/ osg:${OSG_MODEL_NAME}/
+	rsync -avzP scripts/ osg:${OSG_MODEL_NAME}/
