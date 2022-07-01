@@ -17,13 +17,13 @@ request_disk = 25 GB
 # pass in the full path or relative path Julia entrypoint as an argument (relative to the pwd of the singularity
 # container)
 Executable = job-wrapper.sh
-Arguments = /srv/${OSG_MODEL_ENTRYPOINT_SCRIPT}
+Arguments = ${ENTRYPOINT_SCRIPT_EXECUTABLE} /srv/${ENTRYPOINT_SCRIPT}
 
 # Inputs/outputs - in this case all model code is in the container at /code but the particular script we want to run
 # should be in the same directory as this submit script e.g., ~/${OSG_MODEL_NAME}/
 # If you leave out transfer_output_files, all generated files comes back
-transfer_input_files = ${OSG_MODEL_ENTRYPOINT_SCRIPT}
-transfer_output_files = ${OSG_MODEL_OUTPUT_FILES}
+transfer_input_files = ${ENTRYPOINT_SCRIPT}
+transfer_output_files = ${OUTPUT_FILES}
 
 # Error and output are the error and output channels from your job
 # that HTCondor returns from the remote host.

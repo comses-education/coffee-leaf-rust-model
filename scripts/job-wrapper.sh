@@ -2,7 +2,16 @@
 
 set -e
 
-JULIA_ENTRYPOINT=${1:-ParameterRuns.jl}
+# the directory (in the container) where the computational model source code or executable can be called, e.g.,
+# main.py | run.sh | julia-entrypoint.jl | model.R | netlogo-headless.sh
+MODEL_CODE_DIRECTORY=${MODEL_CODE_DIRECTORY:-/code}
+
+# executable to run on the entrypoint script, e.g., python | julia | netlogo-headless.sh | bash
+ENTRYPOINT_SCRIPT_EXECUTABLE=${1:-/bin/bash}
+# entrypoint script to run your model
+ENTRYPOINT_SCRIPT=${2:-run.sh}
+# directory where your model's results should be stored, relative to /srv/ in the singularity container
+RESULTS_DIR=${3:-results}
 
 export TMPDIR=$_CONDOR_SCRATCH_DIR
 
@@ -10,16 +19,13 @@ printf "Start time: "; /bin/date -Iminutes
 printf "Job running on node: "; /bin/hostname
 printf "OSG site: $OSG_SITE_NAME"
 printf "Job running as user: "; /usr/bin/id
-printf "Command line args: $1"
+echo "Command line args: $@"
+echo "Creating results dir at /srv/${RESULTS_DIR}"
+printf "Running model code in ${MODEL_CODE_DIRECTORY} [${SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT}]"
 
-mkdir /srv/results
+cd ${MODEL_CODE_DIRECTORY}
 
-cd /code
+${ENTRYPOINT_SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT} 2>&1
 
-julia ${JULIA_ENTRYPOINT} 2>&1
+printf "${ENTRYPOINT_SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT} execution completed with exit code $? at "; /bin/date -Iminutes
 
-printf "${JULIA_ENTRYPOINT} execution completed: "; /bin/date -Iminutes
-
-tar Jcvf /srv/results.tar.xz /srv/results
-
-echo "Results archived in results.tar.xz with exit code $?"
