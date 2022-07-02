@@ -23,8 +23,9 @@ echo "Command line args: $@"
 echo "Creating results dir at /srv/${RESULTS_DIR}"
 printf "Running model code in ${MODEL_CODE_DIRECTORY} [${SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT}]"
 
-cd ${MODEL_CODE_DIRECTORY}
+mkdir -p /srv/${RESULTS_DIR}
 
+cd ${MODEL_CODE_DIRECTORY}
 ${ENTRYPOINT_SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT} 2>&1
 
 printf "${ENTRYPOINT_SCRIPT_EXECUTABLE} ${ENTRYPOINT_SCRIPT} execution completed with exit code $? at "; /bin/date -Iminutes
