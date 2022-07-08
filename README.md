@@ -1,4 +1,7 @@
-# SpatialRust
+# SpatialRust: Coffee Leaf Rust Epidemic Model
+[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-orange)](https://fair-software.eu)
+[![Docker Build](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml)
+[![Singularity Build](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml))
 
 SpatialRust is an individual based model that simulates Coffee Leaf Rust epidemics within a coffee farm.
 
@@ -6,10 +9,8 @@ SpatialRust is an individual based model that simulates Coffee Leaf Rust epidemi
 
 Move to this project's directory and run:
 
-```julia
-using Pkg
-Pkg.activate(".")
-Pkg.instantiate()
+```bash
+$ julia install.jl
 ```
 
 ### Running the model
@@ -33,5 +34,7 @@ Results from this experiment will be saved in a `results` folder as `parameterex
 ### Running on Open Science Grid
 1. Establish an account on Open Science Grid
    https://osg-htc.org/research-facilitation/accounts-and-projects/general/index.html
-2. Build a singularity image from this file via `./build.sh <your-osg-username>`
-3. Copy the singularity image e.g., `spatialrust-v1.sif` to your OSG `/public/<username>` directory
+2. Create a host alias for your OSG account (https://github.com/comses-education/fair-osg-template#set-up-your-user-account-on-the-open-science-grid) 
+3. Build a singularity image and deploy it to your OSG `/public/<username>` directory via `$ make OSG_USERNAME=<your-osg-username> deploy`
+4. ssh into the OSG login node, cd into the `spatialrust` directory and submit the generated `spatialrust.submit` via `$ condor_submit spatialrust.submit`
+5. this runs the ParameterRuns.jl on OSG and should drop off a `results.zip` file with the data in the same directory you submitted the job script.
