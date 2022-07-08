@@ -1,7 +1,7 @@
 # SpatialRust: Coffee Leaf Rust Epidemic Model
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-orange)](https://fair-software.eu)
 [![Docker Build](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml)
-[![Singularity Build](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml))
+[![Singularity Build](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml)
 
 SpatialRust is an individual based model that simulates Coffee Leaf Rust epidemics within a coffee farm.
 
