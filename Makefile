@@ -10,6 +10,7 @@ OSG_OUTPUT_DIR := results
 OSG_SUBMIT_TEMPLATE := scripts/submit.template
 OSG_SUBMIT_FILENAME := scripts/${MODEL_NAME}.sub
 OSG_JOB_SCRIPT := job-wrapper.sh
+OUTPUT_FILES := results
 
 SINGULARITY_DEF = Singularity.def
 CURRENT_VERSION = v2
