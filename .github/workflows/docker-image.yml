@@ -9,6 +9,7 @@ on:
       - 'Project.toml'
       - 'scripts/*'
       - 'src/*'
+      - '.github/workflows/docker-image.yml'
   pull_request:
     branches: [ main ]
 

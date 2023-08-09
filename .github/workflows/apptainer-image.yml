@@ -1,15 +1,16 @@
-name: Singularity Image CI
+name: Apptainer Image CI
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'Makefile'
-      - 'Singularity.def'
+      - 'container.def'
       - 'install.jl'
       - 'Project.toml'
       - 'scripts/*'
       - 'src/*'
+      - '.github/workflows/apptainer-image.yml'
   pull_request:
     branches: [ main ]
 
