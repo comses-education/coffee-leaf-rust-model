@@ -23,6 +23,6 @@ jobs:
       with:
        apptainer-version: 1.2.2
     - name: Build apptainer image
-      run: apptainer build --fakeroot spatialrust-v1.sif Singularity.def
+      run: apptainer build --fakeroot spatialrust-v1.sif container.def
     - name: Execute the single run parameterization
       run: apptainer run --bind ./:/srv/results --pwd /code spatialrust-v1.sif scripts/OneRun.jl
