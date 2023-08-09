@@ -19,10 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Setup Singularity
-      uses: eWaterCycle/setup-singularity@v7
+      uses: eWaterCycle/setup-apptainer@v2
       with:
-       singularity-version: 3.8.3
-    - name: Build Singularity image
-      run: singularity build --fakeroot spatialrust-v1 Singularity.def
+       apptainer-version: 1.2.2
+    - name: Build apptainer image
+      run: apptainer build --fakeroot spatialrust-v1.sif Singularity.def
     - name: Execute the single run parameterization
-      run: singularity run --bind ./:/srv/results --pwd /code spatialrust-v1 scripts/OneRun.jl
+      run: apptainer run --bind ./:/srv/results --pwd /code spatialrust-v1.sif scripts/OneRun.jl
