@@ -41,4 +41,4 @@ conds = Dict(
 results = parameters_experiment(conds)
 
 # Write results
-CSV.write("results/parameterexp.csv", results)
+CSV.write("/srv/results/parameterexp.csv", results)

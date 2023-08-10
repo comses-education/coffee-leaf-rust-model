@@ -13,10 +13,11 @@ OSG_JOB_SCRIPT := job-wrapper.sh
 OUTPUT_FILES := results
 
 CONTAINER_DEF = container.def
-CURRENT_VERSION = v3
+CURRENT_VERSION = v1
 CONTAINER_IMAGE_NAME = ${MODEL_NAME}-${CURRENT_VERSION}.sif
 
 all: build
+
 
 $(CONTAINER_IMAGE_NAME):
 	apptainer build --fakeroot ${CONTAINER_IMAGE_NAME} ${CONTAINER_DEF}
@@ -31,7 +32,8 @@ $(OSG_SUBMIT_FILENAME): $(OSG_SUBMIT_TEMPLATE)
 build: $(CONTAINER_DEF) $(CONTAINER_IMAGE_NAME) $(OSG_SUBMIT_FILENAME)
 	docker build -t comses/${MODEL_NAME}:${CURRENT_VERSION} .
 
-.PHONY: clean deploy
+.PHONY: clean deploy apptainer-build
+apptainer-build: $(CONTAINER_IMAGE_NAME)
 
 clean:
 	rm -f ${CONTAINER_IMAGE_NAME} ${OSG_SUBMIT_FILENAME} ${OSG_OUTPUT_DIR} *~
