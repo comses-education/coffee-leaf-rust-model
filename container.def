@@ -4,11 +4,8 @@ Stage: spython-base
 
 %labels
     author Manuela Vanegas-Ferro
+    curator Allen Lee
     git-repository https://github.com/comses-education/spatialrust-model
-
-%setup
-    mkdir -p /code
-    mkdir -p /srv/results
 
 %help
 This container bundles the Julia packages and computational model for the coffee leaf rust model by Manuela
