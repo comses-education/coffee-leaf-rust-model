@@ -12,7 +12,7 @@ This container bundles the Julia packages and computational model for the coffee
 Vanegas-Ferro
 
 %files
-    src /code
+    src /code/src
     install.jl /code
     Project.toml /code
     README.md /code
