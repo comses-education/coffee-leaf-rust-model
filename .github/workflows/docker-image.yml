@@ -12,6 +12,7 @@ on:
       - '.github/workflows/docker-image.yml'
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
 
