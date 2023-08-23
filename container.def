@@ -14,7 +14,6 @@ Vanegas-Ferro
 %files
     src /code
     install.jl /code
-    Manifest.toml /code
     Project.toml /code
     README.md /code
 
