@@ -1,60 +1,83 @@
-function harvest!(model::ABM)
-    harvest = 0.0
-    # ids = model.current.coffee_ids
-    # for c in (model[id] for id in ids)
-    for c in Iterators.filter(c -> c isa Coffee, allagents(model))
-        harvest += c.production / model.pars.harvest_cycle
-        c.production = 1.0
-        # if plant.fung_this_cycle
-        #     plant.fung_this_cycle = false
-        #     plant.productivity = plant.productivity / 0.8
-        # end
-        # if plant.pruned_this_cycle
-        #     plant.pruned_this_cycle = false
-        #     plant.productivity = plant.productivity / 0.9
-        # end
+function harvest!(model::SpatialRustABM)
+    yprod = sum(map(c -> c.production, model.agents))
+    model.current.prod += yprod
+    cost = model.current.costs += model.mngpars.fixed_costs +
+        yprod * (model.mngpars.other_costs * (1.0 -  (model.current.shadeacc / 365.0) * mean(model.shade_map)) + 0.012)
+    model.current.shadeacc = 0.0
+
+    model.current.fung_count = 0
+    map(a -> new_harvest_cycle!(a, model.mngpars.lesion_survive), model.agents)
+    return nothing
+end
+
+function new_harvest_cycle!(c::Coffee, surv_p::Float64)
+    c.production = 0.0
+    c.deposited *= surv_p
+    surv_n = trunc(Int, c.n_lesions * surv_p)
+    if surv_n == 0
+        c.n_lesions = 0
+        empty!(c.ages)
+        empty!(c.areas)
+        empty!(c.spores)
+        if c.deposited < 0.05
+            c.deposited = 0.0
+            c.rusted = false
+        end
+    else
+        lost = c.n_lesions - surv_n
+        c.n_lesions = surv_n
+        deleteat!(c.ages, 1:lost)
+        deleteat!(c.areas, 1:lost)
+        deleteat!(c.spores, 1:lost)
     end
-    # model.current.net_rev += (model.pars.coffee_price * harvest) - model.current.costs
-    # model.current.gains += model.coffee_price * harvest * model.pars.p_density
-    model.current.prod += harvest
+    return nothing
 end
 
-function fungicide!(model::ABM)
-    model.current.costs += length(model.current.coffee_ids) * 1.0 #model.pars.fung_cost
-    model.current.fung_effect = 15
+function prune_shades!(model::SpatialRustABM, tshade::Float64)
+    if model.current.ind_shade > tshade
+        model.current.ind_shade = tshade
+    else
+        model.current.ind_shade *= 0.9
+    end
+    model.current.costs += model.mngpars.tot_prune_cost
 end
 
-# function prune!(model::ABM)
-#     # n_pruned = trunc(model.pars.prune_effort * length(model.current.shade_ids))
-#     # model.current.costs += n_pruned * model.pars.prune_cost
-#     model.current.costs += length(model.current.shade_ids) * model.pars.prune_cost
-#     # pruned = partialsort(model.current.shade_ids, 1:n_pruned, rev=true, by = x -> model[x].shade)
-#     # for pr in pruned
-#     for pr in model.current.shade_ids
-#         model[pr].shade = model.pars.target_shade
-#     end
-# end
+function inspect!(model::SpatialRustABM)
+    n_infected = 0
+    actv = filter(active, model.agents)
+    if model.mngpars.n_inspected < length(actv)
+        inspected = sample(model.rng, actv, model.mngpars.n_inspected, replace = false)
+    else
+        inspected = actv
+    end
 
-function inspect!(model::ABM)
-    n_inspected = round(Int,(model.pars.inspect_effort * length(model.current.coffee_ids)), RoundToZero)
-    # n_inspected = model.pars.n_inspected
-    cofids = sample(model.rng, model.current.coffee_ids, n_inspected, replace = false)
-
-    for c in cofids
-        # cof = model[c]
-        if model[c].hg_id != 0# && rand < model.pars.inspect_effort * (sum(model[hg_id].state[2,]) / 3)
-            #elimina las que sean > 2.5, * effort
-            rust = model[model[c].hg_id]
-            @inbounds areas = rust.state[2, 1:rust.n_lesions]
-            if any(areas .> 0.05)
-                replace!(a -> a .< 0.05 ? 0.0 : a, areas)
-                spotted = sample(model.rng, 1:rust.n_lesions, weights(areas), 5)
-                newstate = rust.state[:, Not(spotted)]
-                rust.n_lesions = size(newstate)[2]
-                rust.state = hcat(newstate, ones(4, 25 - rust.n_lesions))
+    rmles = model.mngpars.rm_lesions
+    for c in inspected
+        # lesion area of 0.05 means a diameter of ~0.25 cm, which is taken as minimum so grower can see it
+        nvis = sum(>(0.05), c.areas, init = 0.0)
+        # area of 0.8 means a diameter of ~1 cm
+        if nvis > 0  && (0.8 < maximum(c.areas, init = 0.0) || rand(model.rng) < nvis / 5)
+            n_infected += 1
+            spotted = unique!(sort!(sample(model.rng, 1:c.n_lesions, weights(visible.(c.areas)), rmles)))
+            deleteat!(c.ages, spotted)
+            deleteat!(c.areas, spotted)
+            deleteat!(c.spores, spotted)
+            c.n_lesions -= length(spotted)
+            if c.n_lesions == 0 && (c.deposited < 0.05)
+                c.deposited == 0.0
+                c.rusted = false
             end
-            # rust.n_lesions = round(Int, model[cof.hg_id].n_lesions * 0.1)
-            # rust.area = round(Int, model[cof.hg_id].area * 0.1)
         end
     end
+
+    model.current.costs += model.mngpars.tot_inspect_cost
+    model.current.obs_incidence = n_infected / model.mngpars.n_inspected
+end
+
+visible(a::Float64) = a > 0.05 ? a : 0.0
+
+function fungicide!(model::SpatialRustABM)
+    model.current.costs += model.mngpars.tot_fung_cost
+    model.current.fungicide = 1 # model.mngpars.fung_effect
+    model.current.fung_count += 1
 end

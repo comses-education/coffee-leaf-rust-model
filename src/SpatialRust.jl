@@ -1,21 +1,29 @@
 module SpatialRust
 
-using Agents, Distributions, Random, StaticArrays
-using DataFrames
-using DrWatson: srcdir, datadir, dict_list
+using Agents, DataFrames, Distributions, Random
 using StatsBase: sample, weights
 
-include(srcdir("ABM/Initialize.jl"))
-include(srcdir("ABM/Setup.jl"))
-include(srcdir("ABM/Step.jl"))
+include("ABM/MainSetup.jl")
 
-include(srcdir("ABM/CGrowerSteps.jl"))
-include(srcdir("ABM/FarmMap.jl"))
-include(srcdir("ABM/RustDispersal.jl"))
-include(srcdir("ABM/RustGrowth.jl"))
-include(srcdir("ABM/ShadeSteps.jl"))
+const SpatialRustABM = Agents.SingleContainerABM{
+    Agents.GridSpaceSingle{2, false}, Coffee, Vector{Coffee},
+    typeof(Agents.Schedulers.fastest), SpatialRust.Props, Random.Xoshiro
+}
 
-include(srcdir("Runners.jl"))
-include(srcdir("Metrics.jl"))
+include("ABM/CreateABM.jl")
+include("ABM/FarmMap.jl")
+include("ABM/ShadeMap.jl")
+
+include("ABM/MainStep.jl")
+include("ABM/ShadeSteps.jl")
+include("ABM/CoffeeSteps.jl")
+include("ABM/RustGrowth.jl")
+include("ABM/RustDispersal.jl")
+include("ABM/CGrowerSteps.jl")
+
+include("Runners.jl")
+include("Metrics.jl")
+
+export SpatialRustABM
 
 end

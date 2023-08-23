@@ -1,14 +1,11 @@
-# Functions to retrieve model/agent metrics
+# Functions to retrieve agent metrics
 
-incidence(model::ABM) = length(model.current.rust_ids) / length(model.current.coffee_ids)
+incidence(model::ABM) = mean(a -> (a.n_lesions > 0), model.agents)
 
-severity(model::ABM) = median(rusted_area(model[rid]) for rid in model.current.rust_ids)
+severity(model::ABM) = mean(a -> rusted_area(a), model.agents)
 
-production(model::ABM) = median(model[cid].production for cid in model.current.coffee_ids)
+production(model::ABM) = mean(a -> a.production, model.agents)
 
-rusted_area(rust::Rust) = sum(rust.state[2,:])
+rusted_area(rust::Coffee) = sum(rust.areas, init = 0.0)
 
-# Filters
-
-justcofs(a) = a isa Coffee
-justrusts(a) = a isa Rust
+active(c::Coffee) = c.exh_countdown == 0
