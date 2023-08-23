@@ -8,4 +8,5 @@ using SpatialRust
 df = onerun_spatialrust()
 
 # Write results
+mkpath("/srv/results")
 CSV.write("/srv/results/singlerun.csv", df)

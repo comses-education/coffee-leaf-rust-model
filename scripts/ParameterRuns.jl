@@ -28,4 +28,5 @@ pars = DataFrame(dict_list(conds))
 results = parameters_experiment(pars, parsorder)
 
 # Write results
+mkpath("/srv/results")
 CSV.write("/srv/results/parameterexp.csv", results)
