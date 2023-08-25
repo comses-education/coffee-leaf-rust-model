@@ -1,6 +1,6 @@
 # Load Packages
 import Pkg
-Pkg.activate(".") 
+Pkg.activate("/code/.") 
 using CSV, DataFrames, DrWatson, Statistics, SpatialRust
 
 # Define parameter options and # of steps
