@@ -25,4 +25,5 @@ Vanegas-Ferro
 	chmod -R a+rX $JULIA_DEPOT_PATH /code
 
 %runscript
-	exec /opt/julia/bin/julia "$@"
+	cd /code
+	julia --project="." "$@"
