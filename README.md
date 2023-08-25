@@ -1,7 +1,7 @@
 # SpatialRust: Coffee Leaf Rust Epidemic Model
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-orange)](https://fair-software.eu)
 [![Docker Build](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/docker-image.yml)
-[![Singularity Build](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/singularity-image.yml)
+[![Apptainer Build](https://github.com/comses-education/spatialrust-model/actions/workflows/apptainer-image.yml/badge.svg)](https://github.com/comses-education/spatialrust-model/actions/workflows/apptainer-image.yml)
 
 SpatialRust is an individual based model that simulates Coffee Leaf Rust epidemics within a coffee farm.
 
@@ -23,7 +23,7 @@ $ julia scripts/OneRun.jl
 
 Results from this single run will be saved in a `results` folder as `singlerun.csv`.
 
-The second option, `scripts/ParameterRuns.jl`, lets you run a parameter exploration experiment. The default setup of this experiment will run 2700 simulations. To modify the parameter values to be evaluated or the replicates for each combination, open `scripts/ParameterRuns.jl` and edit lines 11 to 14. Like the first option, you can run the script from bash:
+The second option, `scripts/ParameterRuns.jl`, lets you run a parameter exploration experiment. The default setup of this experiment will run 880 simulations. To modify the parameter values to be evaluated or the replicates for each combination, open `scripts/ParameterRuns.jl` and edit lines 7 to 11. Like the first option, you can run the script from bash:
 
 ```bash
 $ julia scripts/ParameterRuns.jl
