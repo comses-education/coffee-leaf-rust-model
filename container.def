@@ -13,7 +13,6 @@ Vanegas-Ferro
 
 %files
     src /code/src
-    scripts /code/scripts
     install.jl /code
     Project.toml /code
     README.md /code
@@ -26,5 +25,4 @@ Vanegas-Ferro
 	chmod -R a+rX $JULIA_DEPOT_PATH /code
 
 %runscript
-	cd /code
-	julia --project="." "$@"
+	julia "$@"

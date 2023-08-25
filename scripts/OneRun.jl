@@ -1,6 +1,6 @@
 # Load Packages
 import Pkg
-Pkg.activate(".") 
+Pkg.activate("/code/.") 
 using Agents, CSV, DataFrames, Distributed, Statistics
 using SpatialRust
 
