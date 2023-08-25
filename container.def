@@ -13,6 +13,7 @@ Vanegas-Ferro
 
 %files
     src /code/src
+    scripts /code/scripts
     install.jl /code
     Project.toml /code
     README.md /code
